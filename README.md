@@ -1,40 +1,94 @@
-# realtimestockmarkets_chatbot
-AI agent available in a conversational interface that can help the user get real-time information about stock markets and perform mathematical operations.
+# Stock Market AI Chatbot
 
+An AI-powered conversational agent that provides real-time stock market information and performs mathematical operations.
 
-Objective
-Create an AI agent available in a conversational interface that can help the user get
-real-time information about stock markets and perform mathematical operations.
-Example
-These are the kind of questions the Agent should be able to respond to. They are just
-inspirational, we are not going to evaluate the accuracy of answers.
-➔
-➔
-User: "What was the Bitcoin price yesterday?"
-Agent: "The closing price of Bitcoin yesterday was $59,756.70. Do you need more
-details on Bitcoin's price trends?"
-➔
-➔
-User: "And the current price of Tesla?"
-Agent: "The current price of Tesla stock is $720.34. Would you like to know more about
-Tesla's performance or compare it with another stock?"
-➔
-➔
-User: "What's the percentage change compared to yesterday?"
-Agent: "The price of Tesla stock increased by 2.5% compared to yesterday.
-”
-➔
-➔
-User: "Can you calculate the average stock price of Apple over the last week?"
-Agent: "The average stock price of Apple over the last week was $145.67. Would you
-like to see a detailed breakdown?"
-Guidelines
-● Integrate the OpenAI API to power the AI agent. If you don't have one, you can create a free Groq
-account and get an API Key to use open source models.
-● Use Streamlit to build a simple chat interface. Build a basic LLM chat app - Streamlit Docs. Feel free
-to copy paste the code.
-● For implementing the agentic workflow, you can interact directly with the Open AI API or use a
-framework like LangChain or similar.
-● Utilize the yfinance Python package to fetch real-time market data, such as stock prices &
-historical data.
-● Provide a Dockerfile in your project to build the environment for your Streamlit app.
+## Features
+
+- **Real-time Stock Data**: Get current prices, historical data, price changes, and averages
+- **Mathematical Operations**: Perform calculations and percentage computations
+- **Multiple Interfaces**: 
+  - Streamlit chat interface
+  - REST API endpoint
+- **Logging**: All interactions logged to SQLite database with metrics
+
+## Setup
+
+1. **Install dependencies**:
+```bash
+pip install -r requirements.txt
+```
+
+2. **Configure environment variables**:
+Create a `.env` file with:
+```env
+ENDPOINT=https://api.groq.com/openai/v1
+DEPLOYMENT_NAME=llama-3.3-70b-versatile
+API_KEY=your_api_key_here
+```
+
+For OpenAI:
+```env
+ENDPOINT=https://api.openai.com/v1
+DEPLOYMENT_NAME=gpt-4
+API_KEY=your_openai_api_key
+```
+
+3. **Initialize database**:
+```python
+from agent import init_db
+init_db()
+```
+
+## Usage
+
+### Streamlit App
+```bash
+streamlit run app.py
+```
+
+### FastAPI Server
+```bash
+uvicorn api:app --host 0.0.0.0 --port 8000 --reload
+```
+
+### Direct Python Usage
+```python
+from agent import simple_chat
+
+response = simple_chat("What's the current price of Tesla?")
+print(response)
+```
+
+## Example Queries
+
+- "What was the Bitcoin price yesterday?"
+- "What's the current price of Tesla?"
+- "What's the percentage change of Apple compared to yesterday?"
+- "Can you calculate the average stock price of Microsoft over the last week?"
+- "Calculate 150 * 2.5 + 100"
+
+## Stock Symbols
+
+- Apple: AAPL
+- Tesla: TSLA
+- Microsoft: MSFT
+- Bitcoin: BTC-USD
+- Google: GOOGL
+
+## Docker
+
+Build and run with Docker:
+```bash
+docker build -t stock-chatbot .
+docker run -p 8501:8501 -p 8000:8000 stock-chatbot
+```
+
+## Database Logs
+
+All interactions are logged to `agent_logs.db` with:
+- Timestamp
+- Prompt and response
+- Model name
+- Token counts (input, output, total)
+- Latency (ms)
+- Tool calls executed
