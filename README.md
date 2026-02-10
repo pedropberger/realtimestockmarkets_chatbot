@@ -58,12 +58,24 @@ docker build -t stock-chatbot-streamlit .
 ```
 
 **Run the container:**
+
+**Linux/Mac:**
 ```bash
 docker run -d -p 8501:8501 \
   --env-file .env \
   -v $(pwd)/data:/app/data \
   --name stock-streamlit \
   stock-chatbot-streamlit
+```
+
+**Windows PowerShell:**
+```powershell
+docker run -d -p 8501:8501 --env-file .env -v ${PWD}/data:/app/data --name stock-streamlit stock-chatbot-streamlit
+```
+
+**Windows CMD:**
+```cmd
+docker run -d -p 8501:8501 --env-file .env -v %cd%/data:/app/data --name stock-streamlit stock-chatbot-streamlit
 ```
 
 **Access the app:** http://localhost:8501
@@ -76,12 +88,24 @@ docker build -f Dockerfile.api -t stock-chatbot-api .
 ```
 
 **Run the container:**
+
+**Linux/Mac:**
 ```bash
 docker run -d -p 8000:8000 \
   --env-file .env \
   -v $(pwd)/data:/app/data \
   --name stock-api \
   stock-chatbot-api
+```
+
+**Windows PowerShell:**
+```powershell
+docker run -d -p 8000:8000 --env-file .env -v ${PWD}/data:/app/data --name stock-api stock-chatbot-api
+```
+
+**Windows CMD:**
+```cmd
+docker run -d -p 8000:8000 --env-file .env -v %cd%/data:/app/data --name stock-api stock-chatbot-api
 ```
 
 **Access the API:**
@@ -277,7 +301,7 @@ print(symbols.json())
 
 For development with automatic code reloading, mount the source code as a volume:
 
-**Streamlit:**
+**Streamlit (Linux/Mac):**
 ```bash
 docker run -p 8501:8501 \
   --env-file .env \
@@ -287,7 +311,12 @@ docker run -p 8501:8501 \
   stock-chatbot-streamlit
 ```
 
-**API:**
+**Streamlit (Windows PowerShell):**
+```powershell
+docker run -p 8501:8501 --env-file .env -v ${PWD}/data:/app/data -v ${PWD}/src:/app/src --name stock-streamlit stock-chatbot-streamlit
+```
+
+**API (Linux/Mac):**
 ```bash
 docker run -p 8000:8000 \
   --env-file .env \
@@ -298,8 +327,14 @@ docker run -p 8000:8000 \
   uvicorn src.api:app --host 0.0.0.0 --port 8000 --reload
 ```
 
+**API (Windows PowerShell):**
+```powershell
+docker run -p 8000:8000 --env-file .env -v ${PWD}/data:/app/data -v ${PWD}/src:/app/src --name stock-api stock-chatbot-api uvicorn src.api:app --host 0.0.0.0 --port 8000 --reload
+```
+
 ### Rebuild After Code Changes
 
+**Linux/Mac:**
 ```bash
 # Streamlit
 docker stop stock-streamlit && docker rm stock-streamlit
@@ -310,6 +345,19 @@ docker run -d -p 8501:8501 --env-file .env -v $(pwd)/data:/app/data --name stock
 docker stop stock-api && docker rm stock-api
 docker build -f Dockerfile.api -t stock-chatbot-api .
 docker run -d -p 8000:8000 --env-file .env -v $(pwd)/data:/app/data --name stock-api stock-chatbot-api
+```
+
+**Windows PowerShell:**
+```powershell
+# Streamlit
+docker stop stock-streamlit; docker rm stock-streamlit
+docker build -t stock-chatbot-streamlit .
+docker run -d -p 8501:8501 --env-file .env -v ${PWD}/data:/app/data --name stock-streamlit stock-chatbot-streamlit
+
+# API
+docker stop stock-api; docker rm stock-api
+docker build -f Dockerfile.api -t stock-chatbot-api .
+docker run -d -p 8000:8000 --env-file .env -v ${PWD}/data:/app/data --name stock-api stock-chatbot-api
 ```
 
 ## 🔍 Troubleshooting
