@@ -32,7 +32,10 @@ client = OpenAI(
 
 def init_db():
     """Initialize SQLite database for logging."""
-    conn = sqlite3.connect("agent_logs.db")
+    # Ensure data directory exists
+    os.makedirs("data", exist_ok=True)
+    
+    conn = sqlite3.connect("data/agent_logs.db")
     cursor = conn.cursor()
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS logs (
@@ -55,7 +58,10 @@ def init_db():
 def log_to_db(prompt: str, model: str, tokens_input: int, tokens_output: int, 
               total_tokens: int, latency_ms: int, response: str, tool_calls: Optional[str] = None):
     """Log interaction to SQLite database."""
-    conn = sqlite3.connect("agent_logs.db")
+    # Ensure data directory exists
+    os.makedirs("data", exist_ok=True)
+    
+    conn = sqlite3.connect("data/agent_logs.db")
     cursor = conn.cursor()
     cursor.execute("""
         INSERT INTO logs (timestamp, prompt, model, tokens_input, tokens_output, 

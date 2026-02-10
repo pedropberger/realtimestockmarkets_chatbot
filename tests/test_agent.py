@@ -3,7 +3,7 @@
 Test script for agent.py functions
 """
 
-from agent import (
+from src.agent import (
     init_db,
     get_current_price,
     get_historical_price,

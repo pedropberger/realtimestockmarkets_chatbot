@@ -1,6 +1,6 @@
 import streamlit as st
 import json
-from agent import chat, init_db
+from src.agent import chat, init_db
 
 # Page configuration
 st.set_page_config(

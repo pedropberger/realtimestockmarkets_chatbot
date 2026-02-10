@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
-from agent import chat, init_db
+from src.agent import chat, init_db
 
 # Initialize database on startup
 init_db()
