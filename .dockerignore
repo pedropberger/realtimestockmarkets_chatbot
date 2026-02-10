@@ -1,0 +1,60 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Database files (will be mounted as volume)
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# Test files
+tests/
+pytest_cache/
+.pytest_cache/
+*.coverage
+htmlcov/
+
+# Documentation
+*.md
+!README.md
+LICENSE
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# MacOS
+.DS_Store
+
+# Other
+*.log
+*.tmp
+.cache/
